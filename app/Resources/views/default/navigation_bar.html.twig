@@ -1,0 +1,25 @@
+<header>
+    <a class="btn btn-primary" href="{{  path('homepage') }}">Homepage</a>
+    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <a class="btn btn-default" href="{{  path('fos_user_security_login') }}">Login</a>
+        <a class="btn btn-success" href="{{  path('fos_user_registration_register') }}">Dont have an account? Register here.</a>
+    {% endif %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <a class="btn btn-default" href="{{  path('advertisment_list') }}">My advertisment list</a>
+        <a class="btn btn-success" href="{{  path('advertisment_create') }}">Create advertisment</a>
+        <a class="btn btn-info" href="{{  path('fos_user_profile_show') }}">Profile</a>
+        <a class="btn btn-danger" href="{{  path('fos_user_security_logout') }}">Logout</a>
+    {% endif %}
+</header>
+<div class="flashes_container">
+    {% for flash_message in app.session.flashbag.get('notice') %}
+        <div class="flash flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashbag.get('error') %}
+        <div class="flash flash-error">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+</div>
